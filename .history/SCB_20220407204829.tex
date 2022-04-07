@@ -7,9 +7,7 @@
 \usepackage{booktabs}
 \usepackage{float}
 \usepackage{amssymb}
-\usepackage{multirow}
-\usepackage{geometry}
-\geometry{a4paper,left=2cm,right=2cm,top=1.5cm,bottom=1.5cm}
+
 \begin{document}
     \section{研究背景与问题重述}
     \subsection{研究背景}
@@ -34,8 +32,9 @@
     \begin{table}[H] 
         \centering
         \caption{符号说明}
+         \tiny
          \label{table_time}
-         \setlength{\tabcolsep}{10mm}{
+         \resizebox{\textwidth}{!}{
          \begin{tabular}{lllllll}
          
         \toprule  
@@ -64,7 +63,6 @@
     \begin{table}[H]
         \centering
         \caption{3月2号到3月8号各转向的车流量}
-        \setlength{\tabcolsep}{4mm}{
         \begin{tabular}{cccccccc}
            \hline
             转向/日期 & 2号 & 3号 & 4号 & 5号 & 6号 & 7号 & 8号 \\
@@ -132,7 +130,7 @@
             总计	&105641	&107298	&115223	&106653	&94188	&76640	&93861\\
            \hline
             
-        \end{tabular}}
+        \end{tabular}
     \end{table}
     由表 1可知3月4号，即星期五的车流量最高，且北向南左转+直行4、北向南直行5、
     北向南直行6、南向北右转9、东向西直行3等路线的日交通流相对较大。分别达到了6349、7591、7177、7417、7541车次。\\
@@ -163,7 +161,6 @@
     \begin{table}[H]
         \centering
         \caption{数据表}
-        \setlength{\tabcolsep}{10mm}{
         \begin{tabular}{ccccc}
             \hline
             时间 & 方向 & 流量  & 车尾时距 & 平均速度(m/s)\\
@@ -183,7 +180,6 @@
             23:30:00-00:00:00	&NORTH	&0	&0	&5\\
             \hline
         \end{tabular}
-        }
     \end{table}
     \section{模型建立与求解}
     \subsection{问题一}
@@ -274,14 +270,18 @@
     将长岭路和观山东路的十字路口的数据，即表2，画出2号至8号的朝四个方向驶入的流量-时间时序图，如图5、6、7、8、9所示：\\
 
         \begin{figure}[H]
-            \includegraphics[width=\linewidth]{5.png}
-            \caption{2号-8号车流方向为东的流量时序图}
+
+            \begin{subfigure}[b][0.4\linewidth]
+                \includegraphics[width=\linewidth]{5.png}
+                \caption{2号-8号车流方向为东的流量时序图}
+            \end{subfigure}
+            
+            \begin{subfigure}[b][0.5\linewidth]
+                \includegraphics[width=\linewidth]{6.png}
+                \caption{2号-8号车流方向为南的流量时序图}
+            \end{subfigure}
         \end{figure}
 
-        \begin{figure}[H]
-            \includegraphics[width=\linewidth]{6.png}
-            \caption{2号-8号车流方向为南的流量时序图}
-        \end{figure}
         \begin{figure}[H]
             \includegraphics[width=\linewidth]{7.png}
             \caption{2号-8号车流方向为西的流量时序图}
@@ -294,63 +294,19 @@
             \includegraphics[width=\linewidth]{9.png}
             \caption{2号-8号四方向流量时序图}
         \end{figure}
-        通过分析车流方向为东西南北这四个时序图可以发现，从2号至8号四个方向的车流量都出现了周期性，且四个方向的高峰期时间段相近，结合图5、图6、图7、图8、图9的这5个图可以大致将8点到9点称为早高峰，1点半到2点半为中高峰，5点半到7点为晚高峰。\\
-        \subsubsection{4.1.5 聚类分析}
-         对表2按样本聚类的方法，对四个方向的数据分边进行聚类分析，结果如下：\\
-         \begin{figure}[H]
-             \includegraphics[width=\linewidth]{10.png}
-             \caption{东部驶入车辆聚类结果}
-         \end{figure}
-         同理可得四个方向的聚类图，根据聚类图，可以看到，当划分高度为2.5时，系统聚类将数据划分为3类，其中第一类的属性特性为：轻微拥堵，时间段大约在23:30:00-00:00:00和00:00:00-00:07:00，车流量总数在3398左右，车尾时距在150秒左右。其中第二类的属性特性为畅通：时间段大约在03:30:00-06:0:00，车流量总数在400左右，车尾时距在200秒左右。第三类的属性特征为拥堵的平均车车辆数最大，且车尾时距15秒左右。\\
-         \subsubsection{4.1.6灰色关联度分析}
-         \begin{figure}[H]
-             \includegraphics[width=\linewidth]{11.png}
-             \caption{3月2日0点至次日11点30的灰色关联系数图}
-         \end{figure}
-         3月2号0点至次日11点30的灰色关联系数图，流量与平均车尾距呈现相反方向波动，可以间接说明车流量低且平均车尾时距长的时间段道路不拥挤，根据早中晚高峰的特点和图像的波动趋势，交通拥堵具有一定的周期性，详细灰色关联系数见附件一。\\
-         \begin{table}[H]
-             \centering
-             \caption{关联度结果}
-             \setlength{\tabcolsep}{15mm}{\begin{tabular}{cccc}
-                \hline
-                方向 & 指标 &关联度 & 排名 \\
-                \hline
-                \multirow{2}*{北方向指标} & 平均车尾时距 & 0.889 &1 \\
-                ~ & 流量 & 0.589 & 2 \\
-                \multirow{2}*{南方向指标} & 平均车尾时距 & 0.973 &1\\
-                ~ & 流量 & 0.814 & 2 \\
-                \multirow{2}*{西方向指标} & 平均车尾时距 & 0.903 &1\\
-                ~ & 流量 & 0.805 & 2 \\
-                \multirow{2}*{东方向指标} & 平均车尾时距 & 0.958 &1\\
-                ~ & 流量 & 0.570 & 2 \\
-                \hline
-             \end{tabular}}
-         \end{table}
-         关联度值介于0-1之间,该值越大表示评价项与交通堵车相关性越强，结合附件一关联系数结果进行加权处理，最终得出关联度值，使用关联度值针对平均车尾时距、流量这俩个对象进行评价排序。从表4可以看出,无论车量驶入哪个方向，平均车尾时距的关联度都是最高的，且驶入南方向的平均车尾时距最高，达到0.973，其次为向西驶入。\\
-        \subsection{4.1.7秩和比综合评价法（RSR）分析结果}
-        平均车尾时距越大意味着道路交通状态不拥挤，车流量越大表示当前时期交通状态越拥挤，将平均车尾时距作为正向指标，流量作为负向指标，权重计算采用熵权法。\\
-        \textbf{（1）指标权重计算}
-        \begin{table}[H]
-            \centering
-            \caption{权重表}
-            \setlength{\tabcolsep}{8mm}{\begin{tabular}{ccccc}
-               \hline
-               方向 & 指标 &信息熵值e & 信息效用值d &权重 \\
-               \hline
-               \multirow{2}*{北方向指标} & 平均车尾时距 & 0.871 &0.129 &0.772 \\
-               ~ & 流量 & 0.589 & 2 &0.228\\
-               \multirow{2}*{南方向指标} & 平均车尾时距 & 0.0.791 &0.209 &0.842\\
-               ~ & 流量 & 0.0=961& 0.193 &0.158\\
-               \multirow{2}*{西方向指标} & 平均车尾时距 & 0.907 &0.193 & 0.920\\
-               ~ & 流量 & 0.983 & 0.017 &0.080\\
-               \multirow{2}*{东方向指标} & 平均车尾时距 & 0.896 &0.104 & 0.768\\
-               ~ & 流量 & 0.969 & 0.031 & 0.232 \\
-               \hline
-            \end{tabular}}
-        \end{table}
-        上表展示了熵权法的权重计算结果，根据结果对各个指标的权重进行分析，熵权法的权重计算结果显示，平北向均车尾时距的权重为77.195\%、流量的权重为22.805\%，其中指标权重最大值为平均车尾时距（77.195\%），最小值为流量（22.805\%）。南方向平均车尾时距的权重为84.177\%、流量的权重为15.823\%，其中指标权重最大值为平均车尾时距（84.177\%），最小值为流量（15.823\%）。东方向平均车尾时距的权重为92.0\%、流量的权重为8.0\%，其中指标权重最大值为平均车尾时距（92.0\%），最小值为流量（8.0\%）。西方向平均车尾时距的权重为76.807\%、流量的权重为23.193\%，其中指标权重最大值为平均车尾时距（76.807\%），最小值为流量（23.193\%）\\
-        \textbf{（2）秩值计算}\\
-        东南西北四个方向的秩值计算步骤相同，考虑到篇幅问题，本论文仅展示了北流向的秩值计算结果。\\
-        
 
+
+
+                
+                        
+
+
+
+     
+            
+
+    
+
+
+    
 \end{document}
